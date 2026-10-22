@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{118427DB-A77F-4328-BD34-9B12A8536B07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShramikPay.Api", "src\ShramikPay.Api\ShramikPay.Api.csproj", "{C838BB2A-696A-444D-83FA-2DBC4191AE02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AA02BDBA-2F87-4FC6-A2B6-38AED3F0674A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShramikPay.Tests", "tests\ShramikPay.Tests\ShramikPay.Tests.csproj", "{30F954A4-A3F2-4C74-BA81-6D3ADBEC83B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C838BB2A-696A-444D-83FA-2DBC4191AE02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C838BB2A-696A-444D-83FA-2DBC4191AE02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C838BB2A-696A-444D-83FA-2DBC4191AE02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C838BB2A-696A-444D-83FA-2DBC4191AE02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F954A4-A3F2-4C74-BA81-6D3ADBEC83B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F954A4-A3F2-4C74-BA81-6D3ADBEC83B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F954A4-A3F2-4C74-BA81-6D3ADBEC83B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F954A4-A3F2-4C74-BA81-6D3ADBEC83B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C838BB2A-696A-444D-83FA-2DBC4191AE02} = {118427DB-A77F-4328-BD34-9B12A8536B07}
+		{30F954A4-A3F2-4C74-BA81-6D3ADBEC83B6} = {AA02BDBA-2F87-4FC6-A2B6-38AED3F0674A}
+	EndGlobalSection
+EndGlobal
