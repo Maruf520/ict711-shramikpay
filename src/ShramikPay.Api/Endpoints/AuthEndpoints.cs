@@ -1,3 +1,4 @@
+using ShramikPay.Infrastructure;
 using ShramikPay.Services;
 
 namespace ShramikPay.Endpoints;
@@ -14,10 +15,10 @@ public static class AuthEndpoints
             var token = auth.Login(req.Username, req.Password);
             return token == null ? Results.Unauthorized() : Results.Ok(new { token });
         });
-        app.MapPost("/api/auth/register", (RegisterRequest req, AuthService auth) =>
+        app.MapPost("/api/users", (RegisterRequest req, AuthService auth) =>
         {
             var user = auth.Register(req.Username, req.Password, req.Role, req.WorkerId);
             return Results.Ok(new { user.Username, user.Role });
-        });
+        }).RequireRoles("HR");
     }
 }
