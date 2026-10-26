@@ -1,0 +1,31 @@
+name: quality-gate
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+jobs:
+  build-test-analyse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0                      # full history for SonarQube new-code detection
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - uses: actions/setup-java@v4           # required by the SonarScanner for .NET
+        with:
+          distribution: temurin
+          java-version: 17
+      - run: dotnet tool install --global dotnet-sonarscanner
+      - name: Begin SonarQube analysis
+        run: >
+          dotnet sonarscanner begin /k:"shramikpay" /n:"ShramikPay"
+          /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+          /d:sonar.qualitygate.wait=true
+      - run: dotnet build --no-incremental
+      - run: dotnet test --no-build --collect:"XPlat Code Coverage;Format=opencover"
+      - name: End analysis and enforce the Quality Gate
+        run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

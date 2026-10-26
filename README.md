@@ -8,4 +8,7 @@ ICT711 Assessment 3 case study (ASP.NET Core 8, C#). Fictional factory: Shapla A
     dotnet test --collect:"XPlat Code Coverage"      # xUnit + coverlet
 
 ## SonarQube analysis (Windows PowerShell or bash)
-    ./run-sonarqube.ps1      or      bash run-sonarqube.sh
+    ./run-sonarqube.ps1 -AdminPassword <pw>     (Windows)
+    SONAR_ADMIN_PASSWORD=<pw> bash run-sonarqube.sh   (macOS/Linux)
+
+
