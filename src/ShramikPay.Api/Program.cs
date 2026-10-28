@@ -1,6 +1,6 @@
 using ShramikPay;
 
-AppFactory.Create(args).Run();
+await AppFactory.Create(args).RunAsync();
 
 public partial class Program
 {

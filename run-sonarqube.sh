@@ -16,7 +16,7 @@ scan () {
   dotnet sonarscanner end /d:sonar.token="$TOKEN"
 }
 scan v1.0.0
-read -r -p "Baseline analysed. Take the BEFORE screenshots, then press Enter to analyse v1.1.0..."
-scan v1.1.0
+read -r -p "Baseline analysed. Take the BEFORE screenshots, then press Enter to analyse v1.1.1..."
+scan v1.1.1
 git checkout -q main
 echo "Done: $HOST/dashboard?id=shramikpay"

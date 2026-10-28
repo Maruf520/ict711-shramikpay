@@ -19,7 +19,7 @@ function Scan($tag) {
   dotnet sonarscanner end /d:sonar.token="$token"
 }
 Scan "v1.0.0"
-Read-Host "Baseline analysed. Take the BEFORE screenshots, then press Enter to analyse v1.1.0"
+Read-Host "Baseline analysed. Take the BEFORE screenshots, then press Enter to analyse v1.1.1"
 Scan "v1.1.0"
 git checkout -q main
 Write-Host "Done: $HostUrl/dashboard?id=shramikpay"

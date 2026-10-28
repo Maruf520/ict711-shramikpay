@@ -12,12 +12,13 @@ namespace ShramikPay.Tests;
 /// <summary>End-to-end tests against the real ASP.NET Core pipeline on a random local port.</summary>
 public sealed class ApiTests : IAsyncLifetime
 {
+    private static readonly string[] TestHostArgs = { "--urls", "http://127.0.0.1:0", "--environment", "Testing" };
     private WebApplication _app;
     private HttpClient _client;
 
     public async Task InitializeAsync()
     {
-        _app = AppFactory.Create(new[] { "--urls", "http://127.0.0.1:0", "--environment", "Testing" });
+        _app = AppFactory.Create(TestHostArgs);
         var auth = _app.Services.GetRequiredService<AuthService>();
         auth.Register("hr.nasrin", "Hr-Password-01", "HR", null);
         auth.Register("sup.karim", "Sup-Password-01", "Supervisor", null);

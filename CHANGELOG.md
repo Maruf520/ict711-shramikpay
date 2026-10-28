@@ -1,4 +1,9 @@
 # Changelog
+## [1.1.1] - patch (SP-107, found by SonarQube re-analysis of 1.1.0)
+### Fixed
+- Error-handling middleware now passes `context.RequestAborted` to `WriteAsJsonAsync` so a cancelled request stops writing (SonarQube bug, Major).
+- `Program` awaits `RunAsync()` instead of the blocking `Run()` (code smell).
+- Test host arguments moved to a `static readonly` array (code smell, Info).
 ## [1.1.0] - quality remediation release
 ### Fixed (SP-102)
 - Overtime rate used integer division (Tk 64 instead of 64.42/h); all money is now `decimal`, rounded to whole Taka.

@@ -26,7 +26,7 @@ public class ErrorHandling
             }
             context.Response.StatusCode = status;
             var message = status == StatusCodes.Status500InternalServerError ? "Internal server error" : ex.Message;
-            await context.Response.WriteAsJsonAsync(new { error = message });
+            await context.Response.WriteAsJsonAsync(new { error = message }, context.RequestAborted);
         }
     }
 

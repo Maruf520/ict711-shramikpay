@@ -1,12 +1,15 @@
 name: quality-gate
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [main]
   push:
     branches: [main]
 jobs:
   build-test-analyse:
     runs-on: ubuntu-latest
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -15,17 +18,19 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - uses: actions/setup-java@v4           # required by the SonarScanner for .NET
+        if: env.SONAR_TOKEN != ''
         with:
           distribution: temurin
           java-version: 17
-      - run: dotnet tool install --global dotnet-sonarscanner
-      - name: Begin SonarQube analysis
-        run: >
-          dotnet sonarscanner begin /k:"shramikpay" /n:"ShramikPay"
-          /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-          /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-          /d:sonar.qualitygate.wait=true
-      - run: dotnet build --no-incremental
-      - run: dotnet test --no-build --collect:"XPlat Code Coverage;Format=opencover"
+      - name: Begin SonarQube analysis (only when a server is configured)
+        if: env.SONAR_TOKEN != ''
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet sonarscanner begin /k:"shramikpay" /n:"ShramikPay" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.token="$SONAR_TOKEN" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.qualitygate.wait=true
+      - name: Build
+        run: dotnet build ShramikPay.sln --no-incremental
+      - name: Run 48 xUnit tests with coverage
+        run: dotnet test ShramikPay.sln --no-build --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
       - name: End analysis and enforce the Quality Gate
-        run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        if: env.SONAR_TOKEN != ''
+        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
